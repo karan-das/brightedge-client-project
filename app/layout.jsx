@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import SideNav from "./components/SideNav";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,7 +23,15 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+        <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"/>
+      </head>
+      <body className="min-h-full flex flex-col">
+        <SideNav />
+        <div className="ml-[70px] flex-1">{children}</div>
+      </body>
     </html>
   );
 }
