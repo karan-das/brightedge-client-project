@@ -45,7 +45,7 @@ export default function FAQ({ faqs }) {
             style={{ clipPath: "inset(0 round 60px 20px 60px 20px)" }}
           >
             <img
-              src="/home-assets/faq.jpg"
+              src="https://picsum.photos/seed/faq/600/800"
               alt="FAQ"
               className="w-full h-[350px] object-cover"
             />

@@ -1,10 +1,15 @@
 "use client";
 
-import { HiOutlineMenuAlt4 } from "react-icons/hi";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import gsap from "gsap";
+import { RxCross1 } from "react-icons/rx";
+import { CiMenuBurger } from "react-icons/ci";
 
 export default function SideNav() {
   const [isOpen, setIsOpen] = useState(false);
+  const navLinksRef = useRef([]);
+  const contactRef = useRef(null);
+  const navContainerRef = useRef(null);
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -45,112 +50,158 @@ export default function SideNav() {
     },
   ];
 
+
+  useEffect(() => {
+    const allLinks = [...navLinksRef.current, contactRef.current];
+
+    allLinks.forEach((el) => {
+      if (!el) return;
+      const bg = el.querySelector(".nav-bg");
+      const svgIcon = el.querySelector(".nav-arrow");
+      const textSpan = el.querySelector(".nav-text");
+
+      gsap.set(bg, { xPercent: -100 });
+      gsap.set(svgIcon, { opacity: 0 });
+      gsap.set(textSpan, { color: "#000000" });
+
+      el.addEventListener("mouseenter", () => {
+        gsap.to(bg, { xPercent: 0, duration: 0.5, ease: "power2.out" });
+        gsap.to(svgIcon, { opacity: 1, duration: 0.5, delay: 0.05, ease: "power2.out" });
+        gsap.to(textSpan, { color: "#ffffff", duration: 0.5, ease: "power2.out" });
+      });
+
+      el.addEventListener("mouseleave", () => {
+        gsap.to(bg, { xPercent: -100, duration: 0.5, ease: "power3.in" });
+        gsap.to(svgIcon, { opacity: 0, duration: 0.5, ease: "power3.in" });
+        gsap.to(textSpan, { color: "#000000", duration: 0.5, ease: "power3.in" });
+      });
+    });
+  }, [isOpen]);
+
+  const toggleMenu = () => {
+    const newOpen = !isOpen;
+    setIsOpen(newOpen);
+  };
+
   return (
     <>
       <div
         className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 ${
           isOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
-        onClick={() => setIsOpen(false)}
+        onClick={toggleMenu}
       />
 
       <div
-        className={`fixed left-0 top-0 h-full bg-[#2D2D2D] z-50 transition-all duration-500 ease-in-out px-10  ${
-          isOpen ? "w-[350px]" : "w-[80px]"
+        ref={navContainerRef}
+        className={`fixed z-50 flex flex-col bg-white top-0 h-screen w-100 transition-all duration-500 ease-in-out ${
+          isOpen ? "left-[5%]" : "left-[-100%]"
         }`}
       >
-        <div className="h-full flex flex-col items-center  ">
-          <div className="flex items-center h-[70px] px-0 mt-4">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="w-[40px] h-[40px] flex items-center rounded-full justify-center bg-gray-50  flex-shrink-0 hover:bg-gray-100 transition-colors"
+        <nav className="flex flex-col pt-20 flex-1">
+          {navLinks.filter(l => l.name !== "Contact").map((link, index) => (
+            <a
+              key={link.name}
+              ref={(el) => (navLinksRef.current[index] = el)}
+              href={link.href}
+              onClick={toggleMenu}
+              className="relative flex items-center justify-between px-8 py-5 text-3xl font-light text-black border-b border-gray-600 overflow-hidden cursor-pointer"
             >
-              {isOpen ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18 18 6M6 6l12 12"
-                  />
-                </svg>
-              ) : (
-                <HiOutlineMenuAlt4 className="w-6 h-6" />
+              <div className="nav-bg absolute inset-0 bg-[#E84C1E] z-0" />
+
+              <span className="nav-text relative z-10 flex items-center gap-3">
+                {link.dot && (
+                  <span className="w-2 h-2 rounded-full bg-green-500" />
+                )}
+                {link.name}
+              </span>
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="white"
+                className="nav-arrow w-5 h-5 relative z-10"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
+                />
+              </svg>
+            </a>
+          ))}
+        </nav>
+
+        {navLinks.filter(l => l.name === "Contact").map((link) => (
+          <a
+            key={link.name}
+            ref={contactRef}
+            href={link.href}
+            onClick={toggleMenu}
+            className="relative flex items-center justify-between px-8 py-5 text-3xl border-t-1 border-gray-600 text-black overflow-hidden cursor-pointer"
+          >
+            <div className="nav-bg absolute inset-0 bg-[#E84C1E] z-0" />
+
+            <span className="nav-text relative z-10 flex items-center gap-3">
+              {link.dot && (
+                <span className="w-2 h-2 rounded-full bg-green-500" />
               )}
+              {link.name}
+            </span>
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="white"
+              className="nav-arrow w-5 h-5 relative z-10"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
+              />
+            </svg>
+          </a>
+        ))}
+      </div>
+
+      <div className="fixed left-0 top-0 h-full bg-[#2D2D2D] z-50 px-10 w-[80px]">
+        <div className="h-full flex flex-col items-center relative">
+          <div className="flex items-center h-[70px] px-0 mt-4 z-50 justify-center bg-[#2D2D2D]">
+            <button
+              onClick={toggleMenu}
+              className="w-[40px] h-[40px] flex flex-col items-center justify-center gap-[5px] rounded-full bg-gray-50 flex-shrink-0 hover:bg-gray-100 transition-colors"
+            >
+              {isOpen ? <RxCross1 className="w-5 h-5" /> : <CiMenuBurger className="w-5 h-5" />}
+              
             </button>
           </div>
 
-          <div
-            className={`flex-1 flex flex-col justify-between transition-all duration-500 ${
-              isOpen ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <nav className="flex flex-col">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className={`flex items-center justify-between px-8 py-5 text-lg transition-colors ${
-                    link.highlight
-                      ? "bg-[#E84C1E] text-white"
-                      : "text-[#2D2D2D] hover:bg-gray-50"
-                  }`}
-                >
-                  <span className="flex items-center gap-3">
-                    {link.dot && (
-                      <span className="w-2 h-2 rounded-full bg-green-500" />
-                    )}
-                    {link.name}
-                  </span>
-                  {link.highlight && (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-5 h-5"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"
-                      />
-                    </svg>
-                  )}
-                </a>
-              ))}
-            </nav>
-          </div>
-
-          <div
-            className={`absolute bottom-0 left-0 w-[80px] h-3/5 flex flex-col items-center justify-between gap-4 py-8 transition-all duration-500 ${
-              isOpen ? "opacity-100" : "opacity-100"
-            }`}
-          >
-            <div className="">
-              <img className=" max-w-12 max-h-24 relative object-cover  " src="https://framerusercontent.com/images/xVhc9bI1XTHmNoiRMpRe1F44ZPo.png?width=270&height=386" alt="" />
+          <div className="absolute bottom-0 h-3/5 flex flex-col items-center justify-between gap-4 py-8">
+            <div>
+              <img
+                className="max-w-12 max-h-24 relative object-cover"
+                src="https://framerusercontent.com/images/xVhc9bI1XTHmNoiRMpRe1F44ZPo.png?width=270&height=386"
+                alt=""
+              />
             </div>
 
             <div className="flex gap-3 flex-col">
               {socialLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-[#2D2D2D] flex items-center justify-center text-white hover:bg-[#E84C1E] transition-colors"
-              >
-                {link.icon}
-              </a>
-            ))}
+                <a
+                  key={link.name}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-[#2D2D2D] flex items-center justify-center text-white hover:bg-[#E84C1E] transition-colors"
+                >
+                  {link.icon}
+                </a>
+              ))}
             </div>
           </div>
         </div>

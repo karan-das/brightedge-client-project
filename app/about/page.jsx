@@ -92,7 +92,7 @@ export default function AboutPage() {
         <div className="absolute inset-0">
           <img
             ref={imageRef}
-            src="/home-assets/about-hero.jpg"
+            src="https://picsum.photos/seed/about-hero/1600/900"
             alt="About Hero"
             className="w-full h-[130%] object-cover"
           />
@@ -141,7 +141,7 @@ export default function AboutPage() {
               style={{ clipPath: "inset(0 round 60px 20px 60px 20px)" }}
             >
               <img
-                src="/home-assets/office.jpg"
+                src="https://picsum.photos/seed/office/1200/800"
                 alt="Office"
                 className="w-full h-[500px] object-cover"
               />
@@ -192,7 +192,7 @@ export default function AboutPage() {
               style={{ clipPath: "inset(0 round 60px 20px 60px 20px)" }}
             >
               <img
-                src="/home-assets/founder.jpg"
+                src="https://picsum.photos/seed/founder/600/800"
                 alt="Founder"
                 className="w-full h-[280px] object-cover"
               />

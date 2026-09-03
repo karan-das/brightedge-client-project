@@ -19,6 +19,11 @@ export default function Home() {
   const leftRef = useRef(null);
   const rightRef = useRef(null);
   const wrapperRef = useRef(null);
+  const motionTextRef = useRef(null);
+  const arrowBtnRef = useRef(null);
+  const arrowBtnBgRef = useRef(null);
+  const arrowBtnArrowRef = useRef(null);
+  const arrowBtnBgArrowRef = useRef(null);
   const [activeService, setActiveService] = useState("01");
 
   const services = [
@@ -38,25 +43,25 @@ export default function Home() {
       id: 1,
       title: "Navam",
       category: "Brand Promotion",
-      image: "/home-assets/projects/project1.jpg",
+      image: "https://framerusercontent.com/images/DAG1fl3qUc1VKJRteAEjKHC5m8.png?scale-down-to=2048&width=2754&height=1536",
     },
     {
       id: 2,
       title: "Hell Energy",
       category: "Video Editing",
-      image: "/home-assets/projects/project2.jpg",
+      image: "https://framerusercontent.com/images/eyN2wOolJmKfeLrZbzWgOrZQC44.png?scale-down-to=2048&width=2754&height=1536",
     },
     {
       id: 3,
       title: "Abhinav Fashion",
       category: "Photography",
-      image: "/home-assets/projects/project3.jpg",
+      image: "https://framerusercontent.com/images/arY93vAtCRbshSHOiuqVp8YYYrg.png?width=2752&height=1536",
     },
     {
       id: 4,
       title: "Pinki Ki Rasoi",
       category: "Branding",
-      image: "/home-assets/projects/project4.jpg",
+      image: "https://framerusercontent.com/images/iX5UGaLEuuWujOHIoOrFBOaZ2E8.png?width=2486&height=1728",
     },
   ];
 
@@ -66,35 +71,35 @@ export default function Home() {
       title: "Listening to Your Vision",
       description:
         "We start by understanding your brand, your audience, and your specific goals. We listen first so we can build a creative foundation that actually matches your vision.",
-      image: "/home-assets/steps/step1.jpg",
+      image: "https://picsum.photos/seed/step1/800/600",
     },
     {
       id: 2,
       title: "Strategy & Pre-Production",
       description:
         "We don't just guess. We analyze trends, plan content calendars, write scripts, and build mood boards to create a tailored roadmap for your project.",
-      image: "/home-assets/steps/step2.jpg",
+      image: "https://picsum.photos/seed/step2/800/600",
     },
     {
       id: 3,
       title: "Creative Production",
       description:
         "This is where ideas become real. Whether we are shooting cinematic video, capturing professional photography, or designing your brand identity, we execute with precision.",
-      image: "/home-assets/steps/step3.jpg",
+      image: "https://picsum.photos/seed/step3/800/600",
     },
     {
       id: 4,
       title: "Post-Production & Polish",
       description:
         "The magic happens in the edit. We handle color grading, motion design, kinetic typography, and final design touches to make sure the work is impossible to ignore.",
-      image: "/home-assets/steps/step4.jpg",
+      image: "https://picsum.photos/seed/step4/800/600",
     },
     {
       id: 5,
       title: "Delivery & Growth",
       description:
         "We deliver the final, high-quality assets ready for launch. For our SMM clients, we take over the scheduling, management, and optimization to ensure long-term growth.",
-      image: "/home-assets/steps/step5.jpg",
+      image: "https://picsum.photos/seed/step5/800/600",
     },
   ];
 
@@ -103,7 +108,7 @@ export default function Home() {
       id: 1,
       name: "Anchal Jain",
       role: "Founder, Anchal Jnn Invites",
-      avatar: "/home-assets/testimonials/avatar1.jpg",
+      avatar: "https://picsum.photos/seed/avatar1/200/200",
       companyLogo: null,
       text: "I have been working with Kshitij since a long time now. He has been very professional, understanding to my ideas and requirements. Whatever I have in my mind he gives it a face in the form of animation.",
     },
@@ -111,7 +116,7 @@ export default function Home() {
       id: 2,
       name: "Raj",
       role: "Social Media Manager",
-      avatar: "/home-assets/testimonials/avatar2.jpg",
+      avatar: "https://picsum.photos/seed/avatar2/200/200",
       companyLogo: null,
       text: "Mixtudio is the best agency for photo manipulation and cinematography in Jaipur. They never disappoints.",
     },
@@ -119,15 +124,15 @@ export default function Home() {
       id: 3,
       name: "Lajjo Ki Rasoi",
       role: "Influencer",
-      avatar: "/home-assets/testimonials/avatar3.jpg",
-      companyLogo: "/home-assets/testimonials/company1.png",
+      avatar: "https://picsum.photos/seed/avatar3/200/200",
+      companyLogo: "https://picsum.photos/seed/company1/200/80",
       text: "I had a great experience working with them. I am really happy with the quality of their work.",
     },
     {
       id: 4,
       name: "Mansi Chopra",
       role: "Founder, Ad & Butter",
-      avatar: "/home-assets/testimonials/avatar4.jpg",
+      avatar: "https://picsum.photos/seed/avatar4/200/200",
       companyLogo: null,
       text: "Kshitij quickly grasps creative briefs and brings them to life with sharp video editing skills. He has a strong eye for detail, works with precision, and maintains a high level of professionalism throughout. Highly recommended for video editing, animation and all things creative!",
     },
@@ -135,7 +140,7 @@ export default function Home() {
       id: 5,
       name: "Akshat Singh Kain",
       role: "Founder, Dainik Jaadugar",
-      avatar: "/home-assets/testimonials/avatar5.jpg",
+      avatar: "https://picsum.photos/seed/avatar5/200/200",
       companyLogo: null,
       text: "Kshitij and the team at Mixtudio did an amazing job with the branding for Dainik Jaadugar. They actually took the time to understand what we wanted and delivered exactly that. Really happy with how everything turned out!",
     },
@@ -143,7 +148,7 @@ export default function Home() {
       id: 6,
       name: "Neeraj yadav",
       role: "Tech Startup Co-Founder",
-      avatar: "/home-assets/testimonials/avatar6.jpg",
+      avatar: "https://picsum.photos/seed/avatar6/200/200",
       companyLogo: null,
       text: "Had a great experience working with Kshitij, great graphic design services. His genuine suggestions really helped me to level up our graphics. Highly recommended.",
     },
@@ -201,19 +206,19 @@ export default function Home() {
       title: "Is AI Going to Steal Your Job? The Professional Reality in 2026",
       date: "May 5, 2025",
       category: "Insights",
-      image: "/home-assets/insights/insight1.jpg",
+      image: "https://picsum.photos/seed/insight1/600/400",
     },
     {
       title: "Top Digital Marketing Trends for 2025",
       date: "May 3, 2025",
       category: "Marketing",
-      image: "/home-assets/insights/insight2.jpg",
+      image: "https://picsum.photos/seed/insight2/600/400",
     },
     {
       title: 'The "Eye" vs. The Prompt: Why Creatives Shouldn\'t Fear AI',
       date: "May 2, 2025",
       category: "Insights",
-      image: "/home-assets/insights/insight3.jpg",
+      image: "https://picsum.photos/seed/insight3/600/400",
     },
   ];
 
@@ -235,6 +240,15 @@ export default function Home() {
       });
 
       tl.to(
+        motionTextRef.current,
+        {
+          xPercent: -60,
+          ease: "none",
+        },
+        "<"
+      );
+
+      tl.to(
         rightRef.current,
         {
           xPercent: 100,
@@ -245,6 +259,37 @@ export default function Home() {
     }, wrapperRef);
 
     return () => ctx.revert();
+  }, []);
+
+  useEffect(() => {
+    const btn = arrowBtnRef.current;
+    const bg = arrowBtnBgRef.current;
+    const arrow = arrowBtnArrowRef.current;
+    const bgArrow = arrowBtnBgArrowRef.current;
+
+    gsap.set(bg, { scale: 0 });
+    gsap.set(arrow, { xPercent: -15 });
+    gsap.set(bgArrow, { scale: 0 });
+
+    const onEnter = () => {
+      gsap.to(bg, { scale: 1, duration: 0.3, ease: "power2.out" });
+      gsap.to(arrow, { xPercent: 0, duration: 0.3, ease: "power2.out" });
+      gsap.to(bgArrow, { scale: 1, duration: 0.3, delay: 0.1, ease: "back.out(1.7)" });
+    };
+
+    const onLeave = () => {
+      gsap.to(bg, { scale: 0, duration: 0.3, ease: "power2.in" });
+      gsap.to(arrow, { xPercent: -15, duration: 0.3, ease: "power2.in" });
+      gsap.to(bgArrow, { scale: 0, duration: 0.2, ease: "power2.in" });
+    };
+
+    btn.addEventListener("mouseenter", onEnter);
+    btn.addEventListener("mouseleave", onLeave);
+
+    return () => {
+      btn.removeEventListener("mouseenter", onEnter);
+      btn.removeEventListener("mouseleave", onLeave);
+    };
   }, []);
 
   return (
@@ -274,7 +319,7 @@ export default function Home() {
               </p>
             </div>
 
-            <h1 className="text-[#2D2D2D] text-[70px] md:text-[110px] lg:text-[240px] font-bold leading-[0.9] tracking-tight mb-8 uppercase">
+            <h1 ref={motionTextRef} className="text-[#2D2D2D] text-[70px] md:text-[110px] lg:text-[240px] font-bold leading-[0.9] tracking-tight mb-8 uppercase">
               Motion
             </h1>
 
@@ -288,14 +333,37 @@ export default function Home() {
                 <span className="text-gray-400 text-lg">Our</span>
                 <span className="text-[#E84C1E] text-2xl font-bold">Services</span>
               </div>
-              <button className="w-16 h-16 rounded-full border-2 border-zinc-700 flex items-center justify-center hover:bg-gray-100 transition-colors">
+              <button
+                ref={arrowBtnRef}
+                className="relative w-16 h-16 rounded-full border-2 border-zinc-700 flex items-center justify-center overflow-hidden cursor-pointer"
+              >
+                <div
+                  ref={arrowBtnBgRef}
+                  className="absolute inset-0 bg-zinc-700 rounded-full flex items-center justify-center"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2.5}
+                    stroke="white"
+                    className="w-10 h-5"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                    />
+                  </svg>
+                </div>
                 <svg
+                  ref={arrowBtnArrowRef}
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={2.5}
                   stroke="currentColor"
-                  className="w-10 h-5 text-gray-600"
+                  className="w-10 h-5 text-gray-600 relative z-10"
                 >
                   <path
                     strokeLinecap="round"
@@ -305,12 +373,18 @@ export default function Home() {
                 </svg>
               </button>
             </div>
+            <svg style={{
+              rotate:"90deg"
+            }} width="40" height="40" className="absolute -right-10 bottom-0" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M40 40V0C40 22.0914 22.0914 40 0 40H40Z" fill="#fcfcfc"></path>
+</svg>
           </div>
 
           <div
             ref={rightRef}
             className="w-1/2 h-full bg-transparent relative overflow-hidden"
           >
+            
             <svg width="40" height="40" className="absolute right-0 bottom-30" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M40 40V0C40 22.0914 22.0914 40 0 40H40Z" fill="#fcfcfc"></path>
 </svg>
@@ -325,7 +399,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="absolute bottom-0 left-0 w-full h-[20px] bg-black" />
+        <div className="absolute bottom-0 left-0 w-full h-[20px] bg-white" />
       </div>
 
       <section className="bg-white py-20 px-10 md:px-14 lg:px-20">
@@ -428,20 +502,24 @@ export default function Home() {
           We Are A Creative Agency Built For Impact
         </h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-          <div className="relative">
-            <div
-              className="overflow-hidden"
-              style={{ clipPath: "inset(0 round 60px 20px 60px 20px)" }}
-            >
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+          <div className="relative col-span-2">
+            <div className="relative rounded-4xl overflow-hidden">
               <img
                 src="/home-assets/office.avif"
                 alt="Office"
-                className="w-full h-[500px] object-cover"
+                className="w-full h-[600px] object-cover"
               />
             </div>
 
-            <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-white rounded-full border-4 border-white shadow-lg flex items-center justify-center">
+           <div className="w-45 h-45 bg-white absolute left-0 top-110 " style={{ borderTopRightRadius: "50%" }}>
+            <svg className="absolute left-0 -top-10 rotate-90" width="40" height="40" viewBox="0 0 40 40" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+<path d="M40 40V0C40 22.0914 22.0914 40 0 40H40Z" fill="#FCFCFC"></path>
+</svg>
+<svg className="absolute bottom-5 -right-10  rotate-90" width="40" height="40" viewBox="0 0 40 40" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+<path d="M40 40V0C40 22.0914 22.0914 40 0 40H40Z" fill="#FCFCFC"></path>
+</svg>
+            <div className="absolute top-5  right-8 w-28 h-28 bg-white rounded-full border-1 border-black shadow-lg flex items-center justify-center">
               <div className="relative w-full h-full flex items-center justify-center">
                 <svg viewBox="0 0 100 100" className="w-full h-full">
                   <defs>
@@ -456,24 +534,30 @@ export default function Home() {
                     </textPath>
                   </text>
                 </svg>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-12 h-12 bg-[#E84C1E] rounded-full flex items-center justify-center">
-                    <span className="text-white font-black text-lg">M</span>
+                <div className="absolute  inset-0 flex items-center justify-center">
+                  <div className="w-14 h-14 p-2 bg-[#E84C1E] rounded-full flex items-center justify-center">
+                    <img className="w-full h-full object-contain" src="/home-assets/logo.png" alt="" />
                   </div>
                 </div>
               </div>
             </div>
+           </div>
+
           </div>
 
           <div className="flex flex-col gap-6 lg:pt-0 pt-12">
             <div
-              className="bg-[#F5F5F5] p-10"
-              style={{ clipPath: "inset(0 round 20px 60px 20px 60px)" }}
+              className=" w-full h-74 p-4"
             >
-              <h3 className="text-[#2D2D2D] text-2xl font-bold mb-5">
-                Our story
-              </h3>
-              <p className="text-gray-500 text-[15px] leading-relaxed">
+              <div className="w-full h-22 bg-[#F2F2F2] " style={{borderTopRightRadius:30}} >
+                <h3 className="text-[#2D2D2D] flex items-center justify-center text-2xl relative font-bold mb-5 bg-white w-50 h-full" style={{borderBottomRightRadius:50}}>
+                  Our story
+                <svg className=" absolute top-0 -right-10 rotate-180" width="40" height="40" viewBox="0 0 40 40" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+<path d="M40 40V0C40 22.0914 22.0914 40 0 40H40Z" fill="#FCFCFC"></path>
+</svg>
+                </h3>
+              </div>
+              <p className="text-gray-500 bg-[#F2F2F2] p-4 text-lg leading-relaxed rounded-3xl" style={{borderTopRightRadius:0}}>
                 At Mixtudio, we are a full-service creative agency
                 specializing in high-impact video production, branding, and
                 social media management, tailored to drive your brand&apos;s
@@ -482,8 +566,7 @@ export default function Home() {
             </div>
 
             <div
-              className="overflow-hidden"
-              style={{ clipPath: "inset(0 round 60px 20px 60px 20px)" }}
+              className="overflow-hidden rounded-4xl"
             >
               <img
                 src="/home-assets/founder.avif"

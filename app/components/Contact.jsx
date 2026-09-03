@@ -36,7 +36,7 @@ export default function Contact() {
           <div>
             <div className="flex items-center gap-4 mb-8">
               <img
-                src="/home-assets/founder.jpg"
+                src="https://picsum.photos/seed/contact-founder/600/800"
                 alt="Kshitij Samariya"
                 className="w-16 h-16 rounded-full object-cover"
               />
