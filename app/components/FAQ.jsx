@@ -1,58 +1,49 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { useState } from "react";
 
 export default function FAQ({ faqs }) {
-  const sectionRef = useRef(null);
-  const leftRef = useRef(null);
   const [openIndex, setOpenIndex] = useState(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top top",
-        end: "bottom bottom",
-        pin: leftRef.current,
-        pinSpacing: false,
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <section ref={sectionRef} className="bg-white">
+    <section className="bg-white">
       <div className="grid grid-cols-1 lg:grid-cols-2">
-        <div ref={leftRef} className="lg:sticky lg:top-0 h-screen flex flex-col justify-center px-10 md:px-14 lg:px-20">
-          <p className="text-[#E84C1E] text-sm mb-3 tracking-wide">
+        <div className="lg:sticky lg:top-0 h-screen flex flex-col justify-center px-10 md:px-14 lg:px-16">
+          <p className="text-[#E84C1E] text-lg  tracking-wide">
             {"{ FAQ }"}
           </p>
-          <h2 className="text-[#2D2D2D] text-3xl md:text-4xl lg:text-[42px] font-black uppercase tracking-tight mb-10 leading-tight">
+          <h2 className="text-[#2D2D2D] text-3xl md:text-4xl lg:text-[42px] font-medium uppercase tracking-tight mb-10 leading-tight">
             Clear Solutions To<br />Your Concerns
           </h2>
 
           <div
             className="relative overflow-hidden"
-            style={{ clipPath: "inset(0 round 60px 20px 60px 20px)" }}
+            style={{ clipPath: "inset(0 round 50px 50px 50px 50px)" }}
           >
+            <div className="w-40 h-30 absolute top-0 left-0 bg-white" style={{borderBottomRightRadius:"50px"}}>
+
+            <svg className="absolute top-0 -right-10 rotate-180" width="40" height="40" viewBox="0 0 40 40" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M40 40V0C40 22.0914 22.0914 40 0 40H40Z" fill="#FCFCFC"></path>
+            </svg>
+
+            <svg className="absolute left-0 -bottom-10 rotate-180" width="40" height="40" viewBox="0 0 40 40" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M40 40V0C40 22.0914 22.0914 40 0 40H40Z" fill="#FCFCFC"></path>
+            </svg>
+
+            </div>
             <img
-              src="https://picsum.photos/seed/faq/600/800"
+              src="https://framerusercontent.com/images/QY6drXCswOtdH5g7g8gHn9nbx8.jpeg?scale-down-to=1024&width=960&height=1200"
               alt="FAQ"
               className="w-full h-[350px] object-cover"
             />
           </div>
         </div>
 
-        <div className="px-10 md:px-14 lg:px-20 py-20">
+        <div className="px-10 md:px-14 lg:pr-10 py-20 mt-30">
           <div className="flex flex-col">
             {faqs.map((faq, index) => (
               <div
@@ -63,7 +54,7 @@ export default function FAQ({ faqs }) {
                   onClick={() => toggleFAQ(index)}
                   className="w-full flex items-center justify-between py-6 text-left hover:text-[#E84C1E] transition-colors"
                 >
-                  <span className="text-[#2D2D2D] text-lg md:text-xl font-medium pr-8">
+                  <span className="text-[#2D2D2D] text-lg md:text-2xl font-medium pr-8">
                     {faq.question}
                   </span>
                   <span

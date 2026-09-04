@@ -77,11 +77,11 @@
 }
 
 .testimonial-marquee-right {
-  animation: testimonial-marquee-right 30s linear infinite;
+  animation: testimonial-marquee-right 18s linear infinite;
 }
 
 .testimonial-marquee-left {
-  animation: testimonial-marquee-left 30s linear infinite;
+  animation: testimonial-marquee-left 18s linear infinite;
 }
 
 .stack-cards {
@@ -108,3 +108,122 @@
   object-fit: cover;
 }
 
+.circle-button-anim {
+  border: none;
+}
+
+.circle-button-anim-red {
+  width: 58%;
+  aspect-ratio: 1;
+  transform: scale(1);
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    border-radius 0.7s ease;
+  z-index: -1;
+}
+
+.circle-button-anim:hover .circle-button-anim-red {
+  transform: scale(2);
+}
+
+.rotating-text-anim {
+  transition: color 0.4s ease;
+}
+
+.rotating-text-anim text {
+  fill: #111;
+  transition: fill 0.45s ease;
+}
+
+.circle-button-anim:hover .rotating-text-anim text {
+  fill: white;
+}
+
+.arrow-anim {
+  width: 23%;
+  height: 23%;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.circle-button-anim:hover .arrow-anim {
+  transform: translateY(8px);
+}
+
+@keyframes rotateTextAnc {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================
+   SERVICES CLIP-PATH HOVER REVEAL
+========================= */
+
+.service-item {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.service-reveal {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  clip-path: polygon(50% 0%, 50% 0%, 50% 100%, 50% 100%);
+  transition: clip-path 0.65s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.service-reveal::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.service-item:hover .service-reveal {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+.service-item.is-open .service-reveal {
+  clip-path: polygon(50% 0%, 50% 0%, 50% 100%, 50% 100%);
+  transition: none;
+}
+
+.service-item:hover {
+  color: white;
+}
+
+.service-item.is-open:hover {
+  color: inherit;
+}
+
+.service-item:hover .service-subtitle {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.service-item.is-open:hover .service-subtitle {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.service-item:hover .service-plus {
+  color: #111;
+  background: white;
+  border-color: white;
+  transform: rotate(90deg);
+}
+
+.service-item.is-open .service-plus {
+  transform: rotate(45deg);
+  color: #111;
+  background: white;
+  border-color: white;
+}
+
+.service-item.is-open:hover .service-plus {
+  transform: rotate(45deg);
+}

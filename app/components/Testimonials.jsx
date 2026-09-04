@@ -5,12 +5,12 @@ export default function Testimonials({ testimonials }) {
   const secondRow = testimonials.slice(Math.ceil(testimonials.length / 2));
 
   return (
-    <section className="bg-[#F5F5F5] py-20 overflow-hidden">
+    <section className=" py-20 overflow-hidden">
       <div className="px-10 md:px-14 lg:px-20 mb-12">
         <p className="text-[#E84C1E] text-sm mb-3 tracking-wide">
           {"{ What Our Clients Are Saying }"}
         </p>
-        <h2 className="text-[#2D2D2D] text-3xl md:text-4xl lg:text-[42px] font-black uppercase tracking-tight">
+        <h2 className="text-[#2D2D2D] text-3xl md:text-4xl lg:text-[42px] font-medium uppercase tracking-tight">
           Testimonials That Inspire Confidence
         </h2>
       </div>
@@ -23,9 +23,10 @@ export default function Testimonials({ testimonials }) {
             {[...firstRow, ...firstRow, ...firstRow].map((testimonial, i) => (
               <div
                 key={`top-${i}`}
-                className="flex-shrink-0 w-[350px] bg-white rounded-2xl p-8 shadow-sm"
+                style={{height:"fit-content"}}
+                className="flex-shrink-0 w-[350px] bg-white  rounded-2xl p-8 shadow-sm"
               >
-                <div className="flex items-center gap-4 mb-5">
+                <div className="flex items-center  gap-4 mb-5">
                   <img
                     src={testimonial.avatar}
                     alt={testimonial.name}
@@ -77,6 +78,7 @@ export default function Testimonials({ testimonials }) {
             {[...secondRow, ...secondRow, ...secondRow].map((testimonial, i) => (
               <div
                 key={`bottom-${i}`}
+                style={{height:"fit-content"}}
                 className="flex-shrink-0 w-[350px] bg-white rounded-2xl p-8 shadow-sm"
               >
                 <div className="flex items-center gap-4 mb-5">

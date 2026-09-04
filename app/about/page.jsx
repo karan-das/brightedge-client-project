@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Stats from "../components/Stats";
 import Brands from "../components/Brands";
 import Footer from "../components/Footer";
+import StaticCircle from "../components/StaticCircle";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -147,28 +148,17 @@ export default function AboutPage() {
               />
             </div>
 
-            <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-white rounded-full border-4 border-white shadow-lg flex items-center justify-center">
-              <div className="relative w-full h-full flex items-center justify-center">
-                <svg viewBox="0 0 100 100" className="w-full h-full">
-                  <defs>
-                    <path
-                      id="circlePath"
-                      d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
-                    />
-                  </defs>
-                  <text className="text-[9px] font-bold tracking-[4px] fill-gray-700 uppercase">
-                    <textPath href="#circlePath" startOffset="0%">
-                      EDIT • ANIMATE • ELEVATE •
-                    </textPath>
-                  </text>
-                </svg>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-12 h-12 bg-[#E84C1E] rounded-full flex items-center justify-center">
-                    <span className="text-white font-black text-lg">M</span>
-                  </div>
+            <StaticCircle
+              text="EDIT • ANIMATE • ELEVATE •"
+              style={{ width: "128px", height: "128px" }}
+              left="-2rem"
+              bottom="-2rem"
+              logo={
+                <div className="w-12 h-12 bg-[#E84C1E] rounded-full flex items-center justify-center">
+                  <span className="text-white font-black text-lg">M</span>
                 </div>
-              </div>
-            </div>
+              }
+            />
           </div>
 
           <div className="flex flex-col gap-6 lg:pt-0 pt-12">

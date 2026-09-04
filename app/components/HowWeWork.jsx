@@ -1,129 +1,74 @@
 "use client";
 
-import { useRef, useEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { useRef, useEffect, useState } from "react";
 
 export default function HowWeWork({ steps }) {
-  const sectionRef = useRef(null);
-  const leftRef = useRef(null);
-  const lineRef = useRef(null);
-  const rightColRef = useRef(null);
-  const boxesRef = useRef([]);
   const pointsRef = useRef([]);
-  const activeIndex = useRef(0);
+  const lineFillRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const totalSteps = steps.length;
+    const points = pointsRef.current;
 
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top top",
-        end: "bottom bottom",
-        pin: leftRef.current,
-        pinSpacing: false,
-      });
-
-      gsap.fromTo(
-        lineRef.current,
-        { scaleY: 0 },
-        {
-          scaleY: 1,
-          transformOrigin: "top center",
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top",
-            end: "bottom bottom",
-            scrub: true,
-          },
-        }
-      );
-
-      function setActiveBox(index) {
-        if (activeIndex.current === index) return;
-        activeIndex.current = index;
-        boxesRef.current.forEach((box) => {
-          gsap.to(box, {
-            yPercent: -index * 100,
-            duration: 0.5,
-            ease: "power2.inOut",
-          });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const idx = Number(entry.target.dataset.index);
+            setActiveIndex(idx);
+          }
         });
-      }
+      },
+      { rootMargin: "-50% 0px -50% 0px", threshold: 0 }
+    );
 
-      pointsRef.current.forEach((point, index) => {
-        ScrollTrigger.create({
-          trigger: point,
-          start: "top center",
-          end: "bottom center",
-          onEnter: () => setActiveBox(index),
-          onEnterBack: () => setActiveBox(index),
-        });
-      });
+    points.forEach((point, i) => {
+      point.dataset.index = String(i);
+      observer.observe(point);
+    });
 
-      let contentHeight = 0;
-
-      function alignPoint5() {
-        const lastPoint = pointsRef.current[pointsRef.current.length - 1];
-        const boxEl = boxesRef.current[0];
-        if (!lastPoint || !boxEl || !rightColRef.current) return;
-
-        const point5Top = lastPoint.offsetTop;
-        const boxTopRel = boxEl.offsetTop;
-
-        if (contentHeight === 0) {
-          rightColRef.current.style.paddingBottom = "0px";
-          contentHeight = rightColRef.current.scrollHeight;
-        }
-
-        const neededRightHeight = point5Top + window.innerHeight - boxTopRel;
-        const paddingNeeded = Math.max(0, neededRightHeight - contentHeight);
-
-        rightColRef.current.style.paddingBottom = paddingNeeded + "px";
-      }
-
-      alignPoint5();
-
-      const onResize = () => alignPoint5();
-      window.addEventListener("resize", onResize);
-
-      const resizeCleanup = () => window.removeEventListener("resize", onResize);
-    }, sectionRef);
-
-    return () => ctx.revert();
+    return () => observer.disconnect();
   }, [steps]);
 
+  useEffect(() => {
+    if (lineFillRef.current) {
+      lineFillRef.current.style.transform = `scaleY(${
+        activeIndex / (steps.length - 1)
+      })`;
+    }
+  }, [activeIndex, steps.length]);
+
   return (
-    <section
-      ref={sectionRef}
-      className="bg-white py-10 mb-20 px-10 md:px-14 lg:px-20"
-    >
+    <section className="relative bg-white py-24 mb-20 px-10 md:px-14 lg:px-20">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-        <div
-          ref={leftRef}
-          className="relative h-screen"
-        >
-          <p className="text-[#E84C1E] text-sm mb-3 tracking-wide">
+        <div className="relative lg:sticky lg:top-24 self-start">
+          <p className="text-[#E84C1E] text-xl mb-3 tracking-wide">
             {"{ How We Work }"}
           </p>
-          <h2 className="text-[#2D2D2D] text-3xl md:text-4xl lg:text-[42px] font-black uppercase tracking-tight mb-10 leading-tight">
+          <h2 className="text-[#2D2D2D] text-3xl md:text-4xl lg:text-[42px] font-medium uppercase tracking-tight mb-10 leading-tight">
             Strategic Steps To<br />Impactful Results
           </h2>
 
-          <div className="relative w-full max-w-md h-[320px] rounded-3xl overflow-hidden shadow-lg">
+          <div className="relative w-full max-w-md h-[360px] ">
             {steps.map((step, index) => (
               <div
                 key={step.id}
-                ref={(el) => (boxesRef.current[index] = el)}
-                className="absolute inset-0 w-full h-full"
-                style={{
-                  transform: index === 0 ? "translateY(0%)" : "translateY(100%)",
-                }}
+                className={`absolute inset-0 w-full h-full transition-opacity duration-500 rounded-4xl overflow-hidden ease-in-out ${
+                  activeIndex === index ? "opacity-100" : "opacity-0"
+                }`}
               >
+                <div className="w-40 h-30 bg-white absolute right-0 bottom-0" style={{borderTopLeftRadius:"50px"}}>
+
+<svg className="absolute -top-10 right-0" width="40" height="40" viewBox="0 0 40 40" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+<path d="M40 40V0C40 22.0914 22.0914 40 0 40H40Z" fill="#FCFCFC"></path>
+</svg>
+
+<svg className="absolute -left-10 bottom-0" width="40" height="40" viewBox="0 0 40 40" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+<path d="M40 40V0C40 22.0914 22.0914 40 0 40H40Z" fill="#FCFCFC"></path>
+</svg>
+
+                </div>
+                
                 <img
                   src={step.image}
                   alt={step.title}
@@ -134,13 +79,15 @@ export default function HowWeWork({ steps }) {
           </div>
         </div>
 
-        <div className="relative mt-20">
-          <div
-            ref={lineRef}
-            className="absolute left-5 top-0 bottom-0 w-[3px] bg-[#E84C1E]"
-          />
+        <div className="relative mt-10 self-start">
+          <div className="absolute left-5 top-0 bottom-0 w-[3px] bg-gray-200 overflow-hidden">
+            <div
+              ref={lineFillRef}
+              className="absolute top-0 left-0 w-full h-full bg-[#E84C1E] origin-top transition-transform duration-500 ease-in-out"
+            />
+          </div>
 
-          <div ref={rightColRef} className="flex flex-col gap-24 py-10">
+          <div className="flex flex-col gap-24 py-10">
             {steps.map((step, index) => (
               <div
                 key={step.id}

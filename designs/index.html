@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Animated Navigation</title>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --dark: #353535;
+    --light: #efefed;
+    --line: rgba(40, 40, 40, 0.18);
+    --ease: cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #e9e9e7;
+    color: #36393d;
+    overflow-x: hidden;
+  }
+
+  /* =========================
+     HEADER
+  ========================== */
+
+  header {
+    height: 110px;
+    background: var(--dark);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 45px;
+
+    position: relative;
+    z-index: 100;
+  }
+
+  .logo {
+    color: white;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -1px;
+  }
+
+
+  /* =========================
+     MENU BUTTON
+  ========================== */
+
+  .menu-btn {
+    width: 64px;
+    height: 64px;
+
+    border-radius: 50%;
+    border: none;
+
+    background: #f0f0ee;
+
+    cursor: pointer;
+
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
+
+    z-index: 200;
+
+    transition:
+      transform .4s var(--ease);
+  }
+
+  .menu-line {
+    position: absolute;
+
+    width: 26px;
+    height: 1.5px;
+
+    background: #3a3a3a;
+
+    transition:
+      transform .65s var(--ease),
+      top .65s var(--ease);
+  }
+
+  .menu-line:nth-child(1) {
+    top: 25px;
+  }
+
+  .menu-line:nth-child(2) {
+    top: 38px;
+  }
+
+
+  /* =========================
+     MENU → CROSS
+  ========================== */
+
+  body.menu-open .menu-line:nth-child(1) {
+    top: 31px;
+    transform: rotate(45deg);
+  }
+
+  body.menu-open .menu-line:nth-child(2) {
+    top: 31px;
+    transform: rotate(-45deg);
+  }
+
+  body.menu-open .menu-btn {
+    transform: rotate(90deg);
+  }
+
+
+  /* =========================
+     NAVIGATION OVERLAY
+  ========================== */
+
+  .navigation {
+    position: fixed;
+
+    top: 110px;
+    left: 0;
+
+    width: 100%;
+    height: calc(100vh - 110px);
+
+    background: var(--light);
+
+    z-index: 50;
+
+    overflow-y: auto;
+
+    /*
+      Hidden above screen
+    */
+
+    transform: translateY(-105%);
+
+    transition:
+      transform .9s var(--ease);
+
+    will-change: transform;
+  }
+
+
+  /* OPEN NAV */
+
+  body.menu-open .navigation {
+    transform: translateY(0);
+  }
+
+
+  /* =========================
+     NAV LINKS
+  ========================== */
+
+  .nav-list {
+    list-style: none;
+  }
+
+  .nav-item {
+    height: 110px;
+
+    border-bottom: 1px solid var(--line);
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 55px;
+
+    font-size: clamp(28px, 4vw, 52px);
+
+    cursor: pointer;
+
+    position: relative;
+
+    overflow: hidden;
+
+    opacity: 0;
+
+    transform: translateY(-25px);
+
+    transition:
+      opacity .5s ease,
+      transform .7s var(--ease),
+      background .4s ease;
+  }
+
+
+  /* STAGGER REVEAL */
+
+  body.menu-open .nav-item {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  body.menu-open .nav-item:nth-child(1) {
+    transition-delay: .25s;
+  }
+
+  body.menu-open .nav-item:nth-child(2) {
+    transition-delay: .32s;
+  }
+
+  body.menu-open .nav-item:nth-child(3) {
+    transition-delay: .39s;
+  }
+
+  body.menu-open .nav-item:nth-child(4) {
+    transition-delay: .46s;
+  }
+
+  body.menu-open .nav-item:nth-child(5) {
+    transition-delay: .53s;
+  }
+
+  body.menu-open .nav-item:nth-child(6) {
+    transition-delay: .60s;
+  }
+
+
+  /* HOVER EFFECT */
+
+  .nav-item::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background: #333;
+
+    transform: scaleX(0);
+    transform-origin: left;
+
+    transition: transform .5s var(--ease);
+
+    z-index: -1;
+  }
+
+  .nav-item:hover {
+    color: white;
+  }
+
+  .nav-item:hover::before {
+    transform: scaleX(1);
+  }
+
+
+  /* =========================
+     SOCIALS
+  ========================== */
+
+  .socials {
+    display: flex;
+    gap: 30px;
+
+    padding: 50px 55px;
+  }
+
+  .social {
+    width: 58px;
+    height: 58px;
+
+    border-radius: 50%;
+
+    background: #363636;
+    color: white;
+
+    display: grid;
+    place-items: center;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    transition:
+      transform .4s var(--ease),
+      background .4s ease;
+  }
+
+  .social:hover {
+    transform: translateY(-7px) rotate(8deg);
+    background: #111;
+  }
+
+
+  /* =========================
+     CONTACT DOT
+  ========================== */
+
+  .contact-dot {
+    display: inline-block;
+
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+
+    background: #24a779;
+
+    margin-right: 18px;
+  }
+
+
+  /* =========================
+     MOBILE
+  ========================== */
+
+  @media (max-width: 600px) {
+
+    header {
+      height: 96px;
+      padding: 0 30px;
+    }
+
+    .navigation {
+      top: 96px;
+      height: calc(100vh - 96px);
+    }
+
+    .menu-btn {
+      width: 62px;
+      height: 62px;
+    }
+
+    .nav-item {
+      height: 110px;
+      padding: 0 55px;
+      font-size: 30px;
+    }
+
+    .socials {
+      justify-content: center;
+      padding: 50px 20px;
+    }
+
+  }
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+  <div class="logo">
+    mixstudio
+  </div>
+
+
+  <button
+    class="menu-btn"
+    id="menuButton"
+    aria-label="Open Navigation"
+  >
+    <span class="menu-line"></span>
+    <span class="menu-line"></span>
+  </button>
+
+</header>
+
+
+
+<!-- =========================
+     NAVIGATION
+========================= -->
+
+<nav class="navigation">
+
+  <ul class="nav-list">
+
+    <li class="nav-item">
+      Home
+    </li>
+
+    <li class="nav-item">
+      About
+    </li>
+
+    <li class="nav-item">
+      Services
+    </li>
+
+    <li class="nav-item">
+      Projects
+    </li>
+
+    <li class="nav-item">
+      Blogs
+    </li>
+
+    <li class="nav-item">
+      <span class="contact-dot"></span>
+      Contact
+    </li>
+
+  </ul>
+
+
+  <!-- SOCIAL ICONS -->
+
+  <div class="socials">
+
+    <div class="social">f</div>
+
+    <div class="social">in</div>
+
+    <div class="social">◎</div>
+
+    <div class="social">Be</div>
+
+  </div>
+
+</nav>
+
+
+
+<script>
+
+  const menuButton = document.getElementById("menuButton");
+
+  menuButton.addEventListener("click", () => {
+
+    document.body.classList.toggle("menu-open");
+
+  });
+
+</script>
+
+
+</body>
+</html>

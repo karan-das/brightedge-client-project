@@ -8,7 +8,7 @@ export default function Insights({ posts }) {
       <p className="text-[#E84C1E] text-sm mb-3 tracking-wide">
         {"{ Our Insights }"}
       </p>
-      <h2 className="text-[#2D2D2D] text-3xl md:text-4xl lg:text-[42px] font-black uppercase tracking-tight mb-14">
+      <h2 className="text-[#2D2D2D] text-3xl md:text-4xl lg:text-[42px] font-medium uppercase tracking-tight mb-14">
         Stay Ahead With The Latest In Digital Marketing
       </h2>
 
@@ -22,48 +22,22 @@ export default function Insights({ posts }) {
 }
 
 function InsightCard({ post }) {
-  const cardRef = useRef(null);
-  const imageRef = useRef(null);
-
-  const handleMouseMove = (e) => {
-    const card = cardRef.current;
-    const image = imageRef.current;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = (y - centerY) / 20;
-    const rotateY = (centerX - x) / 20;
-
-    image.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
-  };
-
-  const handleMouseLeave = () => {
-    const image = imageRef.current;
-    image.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)";
-  };
-
   return (
     <div
-      ref={cardRef}
       className="group cursor-pointer"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
     >
       <div
         className="relative overflow-hidden rounded-3xl mb-5"
         style={{ clipPath: "inset(0 round 30px)" }}
       >
         <div
-          ref={imageRef}
           className="transition-transform duration-300 ease-out"
           style={{ transformStyle: "preserve-3d" }}
         >
           <img
             src={post.image}
             alt={post.title}
-            className="w-full h-[300px] object-cover"
+            className="w-full h-[300px] object-cover hover:scale-110 hover:rotate-6 transition-transform duration-500 ease-in-out "
           />
         </div>
       </div>
@@ -88,7 +62,7 @@ function InsightCard({ post }) {
         <span>{post.category}</span>
       </div>
 
-      <h3 className="text-[#2D2D2D] text-xl font-bold leading-snug group-hover:text-[#E84C1E] transition-colors">
+      <h3 className="text-[#2D2D2D] text-xl font-bold leading-snug ">
         {post.title}
       </h3>
     </div>

@@ -12,6 +12,7 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Stats from "./components/Stats";
 import Brands from "./components/Brands";
+import AnimatedCircle from "./components/AnimatedCircle";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,18 +25,64 @@ export default function Home() {
   const arrowBtnBgRef = useRef(null);
   const arrowBtnArrowRef = useRef(null);
   const arrowBtnBgArrowRef = useRef(null);
-  const [activeService, setActiveService] = useState("01");
+
+  const [openService, setOpenService] = useState(null);
 
   const services = [
-    { id: "01", title: "Video Production", subtitle: "Cinematic" },
-    { id: "02", title: "Branding", subtitle: "Identity" },
-    { id: "03", title: "Video Editing", subtitle: "Post Production" },
-    { id: "04", title: "Motion Design", subtitle: "Animation" },
-    { id: "05", title: "SMM", subtitle: "Social Media Management" },
-    { id: "06", title: "Graphic Design", subtitle: "Visuals" },
-    { id: "07", title: "Packaging Design", subtitle: "Physical" },
-    { id: "08", title: "Brand Promotion", subtitle: "Reach" },
-    { id: "09", title: "Photography", subtitle: "Stills" },
+    {
+      id: "01", title: "Video Production", subtitle: "Cinematic",
+      image: "https://picsum.photos/seed/svc1/1600/900",
+      description: "In the age of short-form content, we create videos that capture attention instantly. From high-energy reels to professional brand films, we handle everything from the first frame to the final export.",
+      points: ["Social Media Reels & Shorts", "Ad Film Production", "Scripting & Storyboarding", "Professional Color Grading", "Sound Design & Mixing", "Event Coverage"],
+    },
+    {
+      id: "02", title: "Branding", subtitle: "Identity",
+      image: "https://picsum.photos/seed/svc2/1600/900",
+      description: "We build the foundation of your business. Through strategic thinking and visual storytelling, we ensure your brand gains the clarity, consistency, and character needed to stand out in a crowded market.",
+      points: ["Brand Strategy & Positioning", "Logo Design & Visual Identity", "Brand Voice & Messaging", "Typography & Color Systems", "Brand Guidelines", "Rebranding & Evolution"],
+    },
+    {
+      id: "03", title: "Video Editing", subtitle: "Post Production",
+      image: "https://picsum.photos/seed/svc3/1600/900",
+      description: "We transform raw footage into high-impact narratives. Our editing process focuses on rhythm, retention, and results—ensuring every cut serves a purpose and every second keeps your audience hooked to the screen.",
+      points: ["Precision Cutting & Pacing", "Color Correction & Grading", "Audio Cleaning & Sound Design", "Subtitles & Kinetic Captions", "Multi-Camera Syncing", "Platform-Specific Optimization (9:16 / 16:9)"],
+    },
+    {
+      id: "04", title: "Motion Design", subtitle: "Animation",
+      image: "https://picsum.photos/seed/svc4/1600/900",
+      description: "We bring static ideas to life through fluid movement. Our motion graphics add a layer of premium polish to your content, making complex information easy to digest and impossible to ignore.",
+      points: ["2D & 3D Animation", "Kinetic Typography", "Explainer Videos", "Logo Animation", "UI/UX Motion Assets", "VFX & Compositing"],
+    },
+    {
+      id: "05", title: "SMM", subtitle: "Social Media Management",
+      image: "https://picsum.photos/seed/svc5/1600/900",
+      description: "We don't just post; we perform. By combining data-driven strategy with high-quality content, we manage your digital presence to build community and drive consistent engagement.",
+      points: ["Content Calendar Planning", "Audience Engagement Strategy", "Hashtag & SEO Research", "Platform-Specific Optimization", "Performance Analytics", "Community Management"],
+    },
+    {
+      id: "06", title: "Graphic Design", subtitle: "Visuals",
+      image: "https://picsum.photos/seed/svc6/1600/900",
+      description: "Every touchpoint is an opportunity to impress. We create striking visuals that communicate your message clearly and maintain a high standard of aesthetic excellence across all platforms.",
+      points: ["Social Media Creative Assets", "Marketing Collateral (Decks/Flyers)", "Digital Illustrations", "Print & Editorial Design", "Presentation Design", "Vector Artwork"],
+    },
+    {
+      id: "07", title: "Packaging Design", subtitle: "Physical",
+      image: "https://picsum.photos/seed/svc7/1600/900",
+      description: "We bridge the gap between digital strategy and physical products. Our packaging designs are engineered to grab attention on the shelf and provide a premium unboxing experience for your customers.",
+      points: ["Product Packaging Design", "Labeling & Compliance Layouts", "3D Mockups & Visualization", "Sustainable Packaging Solutions", "Dieline Creation", "Print Production Management"],
+    },
+    {
+      id: "08", title: "Brand Promotion", subtitle: "Reach",
+      image: "https://picsum.photos/seed/svc8/1600/900",
+      description: "Getting seen is only half the battle; being remembered is the goal. We design and execute promotional campaigns that put your brand in front of the right audience at the right time.",
+      points: ["Campaign Strategy & Concept", "Influencer Collaboration Assets", "Digital Ad Creative (Meta/Google)", "Launch Strategy", "Promotional Video Kits", "Cross-Platform Integration"],
+    },
+    {
+      id: "09", title: "Photography", subtitle: "Stills",
+      image: "https://picsum.photos/seed/svc9/1600/900",
+      description: "High-quality imagery is the silent salesman of your brand. We capture professional stills that highlight the best features of your products, people, and processes with a cinematic eye.",
+      points: ["Product & E-commerce Shoots", "Lifestyle & Editorial Photography", "Corporate Headshots", "Interior & Architectural Stills", "Retouching & Post-Processing", "Creative Direction"],
+    },
   ];
 
   const projects = [
@@ -71,35 +118,35 @@ export default function Home() {
       title: "Listening to Your Vision",
       description:
         "We start by understanding your brand, your audience, and your specific goals. We listen first so we can build a creative foundation that actually matches your vision.",
-      image: "https://picsum.photos/seed/step1/800/600",
+      image: "https://framerusercontent.com/images/oKwQP0bWz0KocPmpX7BFjBvmpY.png?scale-down-to=512&width=1672&height=941",
     },
     {
       id: 2,
       title: "Strategy & Pre-Production",
       description:
         "We don't just guess. We analyze trends, plan content calendars, write scripts, and build mood boards to create a tailored roadmap for your project.",
-      image: "https://picsum.photos/seed/step2/800/600",
+      image: "https://framerusercontent.com/images/psIFQ1yHWW4NbPrA1dhSzvYPnI.png?scale-down-to=512&width=1672&height=941",
     },
     {
       id: 3,
       title: "Creative Production",
       description:
         "This is where ideas become real. Whether we are shooting cinematic video, capturing professional photography, or designing your brand identity, we execute with precision.",
-      image: "https://picsum.photos/seed/step3/800/600",
+      image: "https://framerusercontent.com/images/ejTudYj9W7Dx52LwMHryii1qTdU.png?width=1672&height=941",
     },
     {
       id: 4,
       title: "Post-Production & Polish",
       description:
         "The magic happens in the edit. We handle color grading, motion design, kinetic typography, and final design touches to make sure the work is impossible to ignore.",
-      image: "https://picsum.photos/seed/step4/800/600",
+      image: "https://framerusercontent.com/images/bbDIcURc8nKDWVe8gL2Fo7K5ZA.png?scale-down-to=512&width=1448&height=1086",
     },
     {
       id: 5,
       title: "Delivery & Growth",
       description:
         "We deliver the final, high-quality assets ready for launch. For our SMM clients, we take over the scheduling, management, and optimization to ensure long-term growth.",
-      image: "https://picsum.photos/seed/step5/800/600",
+      image: "https://framerusercontent.com/images/n70eQ4FyRdORnIJt4BIuj49K3U.png?scale-down-to=512&width=1672&height=941",
     },
   ];
 
@@ -206,19 +253,19 @@ export default function Home() {
       title: "Is AI Going to Steal Your Job? The Professional Reality in 2026",
       date: "May 5, 2025",
       category: "Insights",
-      image: "https://picsum.photos/seed/insight1/600/400",
+      image: "https://framerusercontent.com/images/GkB5Qht2Wchx20iTfYjpLvyOw.png?width=2816&height=1536",
     },
     {
       title: "Top Digital Marketing Trends for 2025",
       date: "May 3, 2025",
       category: "Marketing",
-      image: "https://picsum.photos/seed/insight2/600/400",
+      image: "https://framerusercontent.com/images/5yyiq2tkZSescxjDzYMQnk1n8E.jpg?width=1920&height=1440",
     },
     {
       title: 'The "Eye" vs. The Prompt: Why Creatives Shouldn\'t Fear AI',
       date: "May 2, 2025",
       category: "Insights",
-      image: "https://picsum.photos/seed/insight3/600/400",
+      image: "https://framerusercontent.com/images/hxdqL1LAkuooFm0jL8IWQbkEeSA.png?width=1537&height=1023",
     },
   ];
 
@@ -273,7 +320,7 @@ export default function Home() {
 
     const onEnter = () => {
       gsap.to(bg, { scale: 1, duration: 0.3, ease: "power2.out" });
-      gsap.to(arrow, { xPercent: 0, duration: 0.3, ease: "power2.out" });
+      gsap.to(arrow, { xPercent: 50, duration: 0.3, ease: "power2.out" });
       gsap.to(bgArrow, { scale: 1, duration: 0.3, delay: 0.1, ease: "back.out(1.7)" });
     };
 
@@ -335,13 +382,14 @@ export default function Home() {
               </div>
               <button
                 ref={arrowBtnRef}
-                className="relative w-16 h-16 rounded-full border-2 border-zinc-700 flex items-center justify-center overflow-hidden cursor-pointer"
+                className="relative w-16 h-16 rounded-full border-2 border-[#545454] flex items-center justify-center overflow-hidden cursor-pointer"
               >
                 <div
                   ref={arrowBtnBgRef}
-                  className="absolute inset-0 bg-zinc-700 rounded-full flex items-center justify-center"
+                  className="absolute inset-0 bg-[#545454] rounded-full flex items-center justify-center"
                 >
                   <svg
+                    ref={arrowBtnBgArrowRef}
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -384,6 +432,8 @@ export default function Home() {
             ref={rightRef}
             className="w-1/2 h-full bg-transparent relative overflow-hidden"
           >
+
+            <AnimatedCircle width="150px" height="150px" right="10px" bottom="18%" />
             
             <svg width="40" height="40" className="absolute right-0 bottom-30" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M40 40V0C40 22.0914 22.0914 40 0 40H40Z" fill="#fcfcfc"></path>
@@ -407,89 +457,79 @@ export default function Home() {
           <p className="text-[#E84C1E] text-sm mb-3 tracking-wide">
             {"{ Our Services }"}
           </p>
-          <h2 className="text-[#2D2D2D] text-3xl md:text-4xl lg:text-[42px] font-black uppercase tracking-tight mb-12">
+          <h2 className="text-[#2D2D2D] text-3xl md:text-4xl lg:text-[42px] font-medium uppercase tracking-tight mb-12">
             Explore What We Can Do For You
           </h2>
 
           <div className="flex flex-col">
-            {services.map((service, index) => (
-              <div
-                key={service.id}
-                className={`group border-t border-gray-200 ${
-                  index === services.length - 1 ? "border-b" : ""
-                }`}
-              >
+            {services.map((service, index) => {
+              const isOpen = openService === index;
+              return (
                 <div
-                  className={`flex items-center justify-between py-6 cursor-pointer transition-all duration-300 ${
-                    activeService === service.id
-                      ? "bg-[#1a1a1a] px-6 -mx-6 rounded-lg"
-                      : "hover:bg-gray-50"
-                  }`}
-                  onClick={() =>
-                    setActiveService(
-                      activeService === service.id ? null : service.id
-                    )
-                  }
+                  key={service.id}
+                  className={`service-item group border-t border-gray-200 ${
+                    index === services.length - 1 ? "border-b" : ""
+                  } ${isOpen ? "is-open" : ""}`}
                 >
-                  <div className="flex items-center gap-6">
-                    <span
-                      className={`text-sm font-medium ${
-                        activeService === service.id
-                          ? "text-[#E84C1E]"
-                          : "text-[#E84C1E]"
-                      }`}
-                    >
-                      {service.id}
-                    </span>
-                    <div className="flex items-baseline gap-3">
-                      <h3
-                        className={`text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tight ${
-                          activeService === service.id
-                            ? "text-white"
-                            : "text-[#2D2D2D]"
-                        }`}
-                      >
-                        {service.title}
-                      </h3>
-                      <span
-                        className={`text-sm ${
-                          activeService === service.id
-                            ? "text-gray-400"
-                            : "text-gray-400"
-                        }`}
-                      >
-                        {service.subtitle}
+                  <div
+                    className="service-reveal"
+                    style={{ backgroundImage: `url(${service.image})` }}
+                  />
+
+                  <div
+                    className="relative z-2 flex items-center justify-between py-6 px-4 md:px-6 cursor-pointer transition-colors duration-300 hover:bg-transparent"
+                    onClick={() => setOpenService(isOpen ? null : index)}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-light text-[#F55733] transition-colors duration-300">
+                        {service.id}
                       </span>
+                      <div className="flex items-baseline gap-3">
+                        <h3 className={`text-3xl md:text-4xl lg:text-6xl font-bold uppercase tracking-tight transition-colors duration-300 ${isOpen ? "text-[#F55733]" : "text-[#2D2D2D] group-hover:text-[#F55733]"}`}>
+                          {service.title}
+                        </h3>
+                        <span className="service-subtitle text-sm text-gray-400">
+                          {service.subtitle}
+                        </span>
+                      </div>
                     </div>
+
+                    <button className={`service-plus w-10 h-10 rounded-full border border-gray-300 text-gray-400 flex items-center justify-center transition-all duration-300 hover:border-gray-500 ${isOpen ? "rotate-45 !bg-white !text-[#111] !border-white" : ""}`}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-5 h-5"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 4.5v15m7.5-7.5h-15"
+                        />
+                      </svg>
+                    </button>
                   </div>
 
-                  <button
-                    className={`w-10 h-10 rounded-full border flex items-center justify-center transition-colors ${
-                      activeService === service.id
-                        ? "border-gray-600 text-white"
-                        : "border-gray-300 text-gray-400 hover:border-gray-500"
-                    }`}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className={`w-5 h-5 transition-transform duration-300 ${
-                        activeService === service.id ? "rotate-45" : ""
-                      }`}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M12 4.5v15m7.5-7.5h-15"
-                      />
-                    </svg>
-                  </button>
+                  <div className={`service-expanded relative z-2 overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"}`}>
+                    <div className="px-4 md:px-6 pb-8 flex flex-col md:flex-row gap-8">
+                      <p className="md:w-1/3 text-sm text-gray-500 leading-relaxed">
+                        {service.description}
+                      </p>
+                      <div className="md:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
+                        {service.points.map((point, i) => (
+                          <div key={i} className="flex items-start gap-2 text-sm text-gray-600">
+                            <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#E84C1E] shrink-0" />
+                            {point}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -498,7 +538,7 @@ export default function Home() {
         <p className="text-[#E84C1E] text-sm mb-3 tracking-wide">
           {"{ Who We Are }"}
         </p>
-        <h2 className="text-[#2D2D2D] text-3xl md:text-4xl lg:text-[42px] font-black uppercase tracking-tight mb-14">
+        <h2 className="text-[#2D2D2D] text-3xl md:text-4xl lg:text-[42px] font-medium uppercase tracking-tight mb-14">
           We Are A Creative Agency Built For Impact
         </h2>
 
@@ -521,24 +561,7 @@ export default function Home() {
 </svg>
             <div className="absolute top-5  right-8 w-28 h-28 bg-white rounded-full border-1 border-black shadow-lg flex items-center justify-center">
               <div className="relative w-full h-full flex items-center justify-center">
-                <svg viewBox="0 0 100 100" className="w-full h-full">
-                  <defs>
-                    <path
-                      id="circlePath"
-                      d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
-                    />
-                  </defs>
-                  <text className="text-[9px] font-bold tracking-[4px] fill-gray-700 uppercase">
-                    <textPath href="#circlePath" startOffset="0%">
-                      EDIT • ANIMATE • ELEVATE •
-                    </textPath>
-                  </text>
-                </svg>
-                <div className="absolute  inset-0 flex items-center justify-center">
-                  <div className="w-14 h-14 p-2 bg-[#E84C1E] rounded-full flex items-center justify-center">
-                    <img className="w-full h-full object-contain" src="/home-assets/logo.png" alt="" />
-                  </div>
-                </div>
+                <AnimatedCircle width="100px" height="100px"  logo="/home-assets/logo.png" />
               </div>
             </div>
            </div>
