@@ -2,8 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
-import { RxCross1 } from "react-icons/rx";
-import { CiMenuBurger } from "react-icons/ci";
+
 
 export default function SideNav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -174,10 +173,34 @@ export default function SideNav() {
           <div className="flex items-center h-[70px] px-0 mt-4 z-50 justify-center bg-[#2D2D2D]">
             <button
               onClick={toggleMenu}
-              className="w-[40px] h-[40px] flex flex-col items-center justify-center gap-[5px] rounded-full bg-gray-50 flex-shrink-0 hover:bg-gray-100 transition-colors"
+              className="w-[40px] h-[40px] relative rounded-full bg-gray-50 flex-shrink-0 hover:bg-gray-100"
+              style={{
+                transition: "transform 0.4s cubic-bezier(0.76, 0, 0.24, 1)",
+                transform: isOpen ? "rotate(90deg)" : "rotate(0deg)",
+              }}
             >
-              {isOpen ? <RxCross1 className="w-5 h-5" /> : <CiMenuBurger className="w-5 h-5" />}
-              
+              <span
+                className="absolute bg-[#3a3a3a]"
+                style={{
+                  width: "20px",
+                  height: "1.5px",
+                  left: "50%",
+                  top: isOpen ? "19px" : "16px",
+                  transform: `translateX(-50%) rotate(${isOpen ? "45" : "0"}deg)`,
+                  transition: "all 0.65s cubic-bezier(0.76, 0, 0.24, 1)",
+                }}
+              />
+              <span
+                className="absolute bg-[#3a3a3a]"
+                style={{
+                  width: "20px",
+                  height: "1.5px",
+                  left: "50%",
+                  top: isOpen ? "19px" : "24px",
+                  transform: `translateX(-50%) rotate(${isOpen ? "-45" : "0"}deg)`,
+                  transition: "all 0.65s cubic-bezier(0.76, 0, 0.24, 1)",
+                }}
+              />
             </button>
           </div>
 
